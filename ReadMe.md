@@ -1,7 +1,7 @@
-# Awwwards
+# Neighbourhood Watch
 
-This python/django web-app was created as a clone of the website 'Awwwards'.Developed during Moringa Core. This is Week 11's Independent Project.
-Date: 16th November 2018
+This python/django web-app was created to act as a Neighbourhood Watch.Developed during Moringa Core. This is Week 11's Independent Project.
+Date: 23th November 2018
 By: Donald Kiplagat
 
 ## Description
