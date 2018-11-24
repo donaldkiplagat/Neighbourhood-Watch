@@ -22,6 +22,7 @@ def index(request):
 
     return render(request,'index.html')
 
+@login_required(login_url='/accounts/login/')
 def notification(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
@@ -29,6 +30,7 @@ def notification(request):
 
     return render(request,'notifications.html',{"notifications":all_notifications})
 
+@login_required(login_url='/accounts/login/')
 def blog(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
@@ -36,6 +38,7 @@ def blog(request):
 
     return render(request,'blog.html',{"blogposts":blogposts})
 
+@login_required(login_url='/accounts/login/')
 def health(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
@@ -43,6 +46,7 @@ def health(request):
 
     return render(request,'health.html',{"healthservices":healthservices})
 
+@login_required(login_url='/accounts/login/')
 def authorities(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
@@ -50,6 +54,7 @@ def authorities(request):
 
     return render(request,'authorities.html',{"authorities":authorities})
 
+@login_required(login_url='/accounts/login/')
 def businesses(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
@@ -57,11 +62,13 @@ def businesses(request):
 
     return render(request,'businesses.html',{"businesses":businesses})
 
+@login_required(login_url='/accounts/login/')
 def view_blog(request,id):
     blog = BlogPost.objects.get(id=id)
 
     return render(request,'view_blog.html',{"blog":blog})
 
+@login_required(login_url='/accounts/login/')
 def user_profile(request,username):
     user = User.objects.get(username=username)
     profile =Profile.objects.get(username=user)
