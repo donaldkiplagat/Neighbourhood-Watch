@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 top-div" style="margin-top:40px;"></div>
+  </div>
+
+  <div class="row">
+
+
+  </div>
+
+  {% for blog in blogposts %}
+  <div class="card" style="width: 30rem;">
+  <div class="card-body">
+    <a href="/view/blog/{{blog.id}}" style="color:black;text-decoration:none;margin:auto;">
+      <h5 class="card-title">{{blog.title}}</h5>
+    </a>
+    <a href="/user/{{blog.username}}" style="color:black;text-decoration:none;margin:auto;">
+      <h6 class="card-subtitle mb-2 text-muted">{{blog.username}}</h6>
+    </a>
+    <p class="card-text">{{blog.post|truncatechars:200 | safe}}</p>
+    <a href="/view/blog/{{blog.id}}" class="card-link">Continue reading</a>
+  </div>
+</div>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+{% endblock %}
