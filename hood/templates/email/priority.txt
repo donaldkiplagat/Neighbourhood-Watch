@@ -1,3 +1,9 @@
-Hello {{name}}
+{{title}}:
 
-Welcome to the Instagram
+Hello {{name}}:
+
+{{message}}
+
+Yours truthfully,
+{{author}}
+Neighbourhood- {{neighbourhood}}

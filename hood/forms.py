@@ -5,7 +5,7 @@ from .models import notifications,Business,Profile,BlogPost
 class notificationsForm(forms.ModelForm):
     class Meta:
         model=notifications
-        exclude=['author','neighbourhood']
+        exclude=['author','neighbourhood','post_date']
 
 class ProfileForm(forms.ModelForm):
     class Meta:

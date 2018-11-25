@@ -3,7 +3,7 @@ from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from .models import neighbourhood,healthservices,Business,Health,Authorities,BlogPost,Profile,notifications
-
+from .email import send_priority_email
 from .forms import notificationsForm,ProfileForm,BlogPostForm,BusinessForm
 from decouple import config,Csv
 import datetime as dt
@@ -19,6 +19,13 @@ from rest_framework.views import APIView
 
 # Create your views here.
 def index(request):
+    try:
+        if not request.user.is_authenticated:
+            return redirect('/accounts/login/')
+        current_user=request.user
+        profile =Profile.objects.get(username=current_user)
+    except ObjectDoesNotExist:
+        return redirect('create-profile')
 
     return render(request,'index.html')
 
@@ -115,3 +122,44 @@ def new_business(request):
         form = BusinessForm()
 
     return render(request,'business_form.html',{"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def create_profile(request):
+    current_user=request.user
+    if request.method=="POST":
+        form =ProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile = form.save(commit = False)
+            profile.username = current_user
+            profile.save()
+        return HttpResponseRedirect('/')
+
+    else:
+
+        form = ProfileForm()
+    return render(request,'profile_form.html',{"form":form})
+
+@login_required(login_url='/accounts/login/')
+def new_notification(request):
+    current_user=request.user
+    profile =Profile.objects.get(username=current_user)
+
+    if request.method=="POST":
+        form =notificationsForm(request.POST,request.FILES)
+        if form.is_valid():
+            notification = form.save(commit = False)
+            notification.author = current_user
+            notification.neighbourhood = profile.neighbourhood
+            notification.save()
+
+            if notification.priority == 'High Priority':
+                send_priority_email(profile.name,profile.email,notification.title,notification.notification,notification.author,notification.neighbourhood)
+
+        return HttpResponseRedirect('/notifications')
+
+
+    else:
+        form = notificationsForm()
+
+    return render(request,'notifications_form.html',{"form":form})
