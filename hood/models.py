@@ -16,6 +16,14 @@ class neighbourhood(models.Model):
     def __str__(self):
         return self.neighbourhood
 
+    def save_neighbourhood(self):
+        self.save()
+
+    @classmethod
+    def delete_neighbourhood(cls,neighbourhood):
+        cls.objects.filter(neighbourhood=neighbourhood).delete()
+
+
 class notifications(models.Model):
     title = models.CharField(max_length=100)
     notification = HTMLField()
@@ -34,6 +42,12 @@ class healthservices(models.Model):
     def __str__(self):
         return self.healthservices
 
+    def save_healthservices(self):
+        self.save()
+
+    @classmethod
+    def delete_healthservices(cls,healthservices):
+        cls.objects.filter(healthservices=healthservices).delete()
 
 
 class Business(models.Model):

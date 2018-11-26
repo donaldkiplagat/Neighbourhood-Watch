@@ -74,9 +74,9 @@ def view_blog(request,id):
     current_user = request.user
 
     try:
-        comments = Comment.objects.get(blogpost_id=id)
+        comments = Comment.objects.filter(post_id=id)
     except:
-        comments =Comment.objects.all()
+        comments =[]
 
     blog = BlogPost.objects.get(id=id)
     if request.method =='POST':

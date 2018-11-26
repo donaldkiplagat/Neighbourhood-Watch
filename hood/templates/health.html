@@ -7,13 +7,18 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 top-div" style="margin-top:40px;"></div>
+    <div class="col-md-12 top-div" style="margin-top:40px;">
+      <h1>Health Services</h1>
+
+    </div>
   </div>
 
 <div class="row">
+
+
   {% for health in healthservices %}
   <div class="col-md-6">
-  <div class="card" style="width: 20rem;" >
+  <div class="card" style="width: 25rem;margin-top:10px;" >
   <div class="card-body">
       <h3 class="card-title" data-toggle="modal" data-target="#{{health.id}}">{{health.name}}</h3>
   </div>
@@ -55,6 +60,13 @@
 <style>
 .bold{
   font-weight: bold;
+}
+h3{
+  text-align: center;
+}
+h1{
+  color:white;
+  text-align:center;
 }
 </style>
 
