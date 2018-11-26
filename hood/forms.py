@@ -17,7 +17,6 @@ class BlogPostForm(forms.ModelForm):
         model=BlogPost
         exclude=['username','neighbourhood','avatar']
 
-
 class BusinessForm(forms.ModelForm):
     class Meta:
         model=Business
