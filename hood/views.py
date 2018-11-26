@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import neighbourhood,healthservices,Business,Health,Authorities,BlogPost,Profile,notifications
+from .models import neighbourhood,healthservices,Business,Health,Authorities,BlogPost,Profile,notifications,Comment
 from .email import send_priority_email
-from .forms import notificationsForm,ProfileForm,BlogPostForm,BusinessForm
+from .forms import notificationsForm,ProfileForm,BlogPostForm,BusinessForm,CommentForm
 from decouple import config,Csv
 import datetime as dt
 from django.http import JsonResponse
@@ -71,9 +71,25 @@ def businesses(request):
 
 @login_required(login_url='/accounts/login/')
 def view_blog(request,id):
-    blog = BlogPost.objects.get(id=id)
+    current_user = request.user
 
-    return render(request,'view_blog.html',{"blog":blog})
+    try:
+        comments = Comment.objects.get(blogpost_id=id)
+    except:
+        comments =Comment.objects.all()
+
+    blog = BlogPost.objects.get(id=id)
+    if request.method =='POST':
+        form = CommentForm(request.POST,request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.username = current_user
+            comment.post = blog
+            comment.save()
+    else:
+        form = CommentForm()
+
+    return render(request,'view_blog.html',{"blog":blog,"form":form,"comments":comments})
 
 @login_required(login_url='/accounts/login/')
 def my_profile(request):
