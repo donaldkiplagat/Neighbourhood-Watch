@@ -2,6 +2,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from .models import notifications,Profile
 
+
 def send_priority_email(name,receiver,title,message,author,neighbourhood):
     #Creating message subject and sender
     subject = title
