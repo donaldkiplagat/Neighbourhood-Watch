@@ -106,9 +106,14 @@ class BlogPost(models.Model):
     post_date = models.DateTimeField(auto_now_add=True)
     avatar = models.ImageField(upload_to='avatars/')
 
-
     def __str__(self):
         return self.title
+
+    @classmethod
+    def search_blogpost(cls,search_term):
+        blogs = cls.objects.filter(Q(username__username=search_term) | Q(neighbourhood__neighbourhood=search_term) | Q(title__icontains=search_term))
+        return blogs
+
 
 class Comment(models.Model):
     comment = models.CharField(max_length=300)
