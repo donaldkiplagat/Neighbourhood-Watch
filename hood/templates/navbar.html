@@ -22,7 +22,8 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'notifications'%}">Notifications</a>
       </li>
-      
+
+
       {% if user.is_superuser %}
       <li class="nav-item">
         <a class="nav-link" href="/admin">Admin</a>
@@ -32,6 +33,9 @@
       {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'my-profile'%}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'update-profile' %}">Edit Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>
