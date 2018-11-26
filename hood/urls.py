@@ -19,6 +19,5 @@ urlpatterns=[
     url(r'^new/notification$',views.new_notification, name='new-notification'),
     url(r'^update/profile$',views.update_profile, name='update-profile'),
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
